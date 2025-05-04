@@ -72,11 +72,12 @@ The EDA script performs multiple analytical operations on the cleaned data:
   Returns the max value of `total_laid_off` and `percentage_laid_off`.
   ```sql
   select max(total_laid_off), max(percentage_laid_off)
-from layoffs_staging_2;
+   from layoffs_staging_2;
   ```
 
 - **Companies with 100% Layoffs**  
   Filters companies where the `percentage_laid_off = 1` and orders by fundraising amount.
+  
 
 - **Total Layoffs by Company**  
   Aggregates layoffs at the company level to identify the most impacted.
