@@ -6,7 +6,7 @@ This project involves cleaning and analyzing a dataset using SQL. It’s divided
 - **Exploratory Data Analysis (EDA)**: Deriving insights and understanding the structure and trends within the dataset.
 
 ## 📂 Project Structure
-
+```
 data-analysis-sql-project/
 │
 ├── 📁 sql/
@@ -16,6 +16,7 @@ data-analysis-sql-project/
 ├── .gitignore
 ├── README.md
 └── LICENSE              
+```
 
 ## 🛠️ Tools Used
 - SQL (tested in MySQL / PostgreSQL / SQLite) *(mention the actual engine used)*
