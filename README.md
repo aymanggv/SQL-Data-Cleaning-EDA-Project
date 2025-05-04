@@ -196,7 +196,6 @@ The EDA script performs multiple analytical operations on the cleaned data:
   from Company_Year_Rank
   where ranking <= 5;
   ```
----
 
 ## ✅ Results & Insights
 
