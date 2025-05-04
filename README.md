@@ -107,8 +107,3 @@ The EDA script performs multiple analytical operations on the cleaned data:
 - **Startups & layoffs**: Funding stage analysis suggests that even well-funded companies were not immune.
 - **Data cleanliness**: Ensures accuracy and reliability of insights with rigorous preprocessing.
 
-
-
-## 📜 License
-MIT License
-
