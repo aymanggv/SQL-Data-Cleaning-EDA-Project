@@ -75,6 +75,8 @@ The EDA script performs multiple analytical operations on the cleaned data:
   from layoffs_staging_2;
   ```
 
+---
+
 - **Companies with 100% Layoffs**  
   Filters companies where the `percentage_laid_off = 1` and orders by fundraising amount.
   ```sql
@@ -83,7 +85,7 @@ The EDA script performs multiple analytical operations on the cleaned data:
   where percentage_laid_off = 1
   order by funds_raised_millions desc;
   ```
-  
+  ---
 
 - **Total Layoffs by Company**  
   Aggregates layoffs at the company level to identify the most impacted.
@@ -93,7 +95,7 @@ The EDA script performs multiple analytical operations on the cleaned data:
    group by company
    order by 2 desc;
    ```
-  
+  ---
 
 - **Date Range of Layoffs**  
   Finds the earliest and latest dates in the dataset.
@@ -101,6 +103,8 @@ The EDA script performs multiple analytical operations on the cleaned data:
   select min(`date`), max(`date`)
   from layoffs_staging_2;
   ```
+
+  ---
 
 - **Layoffs by Industry**  
   Groups total layoffs by industry to detect which sectors were hit hardest.
@@ -110,7 +114,7 @@ The EDA script performs multiple analytical operations on the cleaned data:
   group by industry
   order by 2 desc;
   ```
-  
+  ---
 
 - **Layoffs by Country**  
   Summarizes layoffs by geography.
@@ -120,7 +124,8 @@ The EDA script performs multiple analytical operations on the cleaned data:
   group by country
   order by 2 desc;  
   ``` 
-  
+
+  ---
 
 - **Layoffs by Year**  
   Breaks down layoffs annually for temporal analysis.
@@ -129,7 +134,9 @@ The EDA script performs multiple analytical operations on the cleaned data:
   from layoffs_staging_2
   group by Year(`date`)
   order by 1 desc;
-  ``` sql  
+  ```
+
+  ---
 
 - **Layoffs by Funding Stage**  
   Explores which startup stages (e.g., Series A, B, etc.) had the most layoffs.
@@ -140,6 +147,8 @@ The EDA script performs multiple analytical operations on the cleaned data:
   order by 2 desc;
   ```
 
+  ---
+
 - **Monthly Layoff Trends**  
   Groups data by month to visualize layoff trends over time.
   ```sql
@@ -149,6 +158,8 @@ The EDA script performs multiple analytical operations on the cleaned data:
   group  by `Month`
   order by 1 asc; 
   ```
+
+  ---
 
 - **Rolling Total of Layoffs**  
   Uses a window function to compute a running total of layoffs month-by-month.
@@ -164,6 +175,8 @@ The EDA script performs multiple analytical operations on the cleaned data:
   from Rolling_Total;
   ```
 
+  ---
+
  - **Layoffs by Company**  
   Summarizes layoffs by company.
   ```sql
@@ -172,6 +185,8 @@ The EDA script performs multiple analytical operations on the cleaned data:
   group by company
   order by 2 desc;
   ```
+
+  ---
  
  - **Layoffs by Company and Year**  
   Summarizes layoffs by company and the year of the layoffs.
@@ -181,6 +196,8 @@ The EDA script performs multiple analytical operations on the cleaned data:
   group by company, year(`date`)
   order by 3 desc;
   ```
+
+  ---
 
  - **Top 5 Companies with Most Layoffs Per Year**  
   Identifies the top 5 companies with the highest number of layoffs each year by calculating yearly totals and ranking them using DENSE_RANK().
@@ -201,7 +218,7 @@ The EDA script performs multiple analytical operations on the cleaned data:
   where ranking <= 5;
   ```
 
----
+  ---
 
 ## ✅ Results & Insights
 
