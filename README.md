@@ -77,19 +77,51 @@ The EDA script performs multiple analytical operations on the cleaned data:
 
 - **Companies with 100% Layoffs**  
   Filters companies where the `percentage_laid_off = 1` and orders by fundraising amount.
+  ```sql
+  select * 
+   from layoffs_staging_2
+   where percentage_laid_off = 1
+   order by funds_raised_millions desc;
+  ```
   
 
 - **Total Layoffs by Company**  
   Aggregates layoffs at the company level to identify the most impacted.
+   ```sql
+   select company, sum(total_laid_off)
+   from layoffs_staging_2
+   group by company
+   order by 2 desc;
+   ```
+  
 
 - **Date Range of Layoffs**  
   Finds the earliest and latest dates in the dataset.
 
+  ```sql
+  select min(`date`), max(`date`)
+   from layoffs_staging_2;
+  ```
+
 - **Layoffs by Industry**  
   Groups total layoffs by industry to detect which sectors were hit hardest.
+  ```sql
+  select industry, sum(total_laid_off)
+  from layoffs_staging_2
+  group by industry
+  order by 2 desc;
+  ```
+  
 
 - **Layoffs by Country**  
   Summarizes layoffs by geography.
+ ```sql
+select country, sum(total_laid_off)
+from layoffs_staging_2
+group by country
+order by 2 desc;  
+ ``` 
+  
 
 - **Layoffs by Year**  
   Breaks down layoffs annually for temporal analysis.
