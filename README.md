@@ -115,25 +115,92 @@ The EDA script performs multiple analytical operations on the cleaned data:
 
 - **Layoffs by Country**  
   Summarizes layoffs by geography.
- ```sql
-select country, sum(total_laid_off)
-from layoffs_staging_2
-group by country
-order by 2 desc;  
- ``` 
+  ```sql
+  select country, sum(total_laid_off)
+  from layoffs_staging_2
+  group by country
+  order by 2 desc;  
+  ``` 
   
 
 - **Layoffs by Year**  
   Breaks down layoffs annually for temporal analysis.
+  ```sql
+  select Year(`date`), sum(total_laid_off)
+  from layoffs_staging_2
+  group by Year(`date`)
+  order by 1 desc;
+  ``` sql  
 
 - **Layoffs by Funding Stage**  
   Explores which startup stages (e.g., Series A, B, etc.) had the most layoffs.
+  ```sql
+  select stage, sum(total_laid_off)
+  from layoffs_staging_2
+  group by stage
+  order by 2 desc;
+  ```
 
 - **Monthly Layoff Trends**  
   Groups data by month to visualize layoff trends over time.
+  ```sql
+  select substring(`date`, 1, 7) as `Month`, sum(total_laid_off)
+  from layoffs_staging_2
+  where substring(`date`, 1, 7) is not null
+  group  by `Month`
+  order by 1 asc; 
+  ```
 
 - **Rolling Total of Layoffs**  
   Uses a window function to compute a running total of layoffs month-by-month.
+  ```sql
+  with Rolling_Total as(
+  select substring(`date`, 1, 7) as `Month`, sum(total_laid_off) as total_off
+  from layoffs_staging_2
+  where substring(`date`, 1, 7) is not null
+  group  by `Month`
+  order by 1 asc
+  )
+  select `Month`, total_off, sum(total_off) over(order by `Month`)
+  from Rolling_Total;
+  ```
+
+ - **Layoffs by Company**  
+  Summarizes layoffs by company.
+  ```sql
+  select company, sum(total_laid_off)
+  from layoffs_staging_2
+  group by company
+  order by 2 desc;
+  ```
+ 
+ - **Layoffs by Company and Year**  
+  Summarizes layoffs by company and the year of the layoffs.
+  ```sql
+  select company, year(`date`), sum(total_laid_off)
+  from layoffs_staging_2
+  group by company, year(`date`)
+  order by 3 desc;
+  ```
+
+ - **Top 5 Companies with Most Layoffs Per Year**  
+  Identifies the top 5 companies with the highest number of layoffs each year by calculating yearly totals and ranking them using DENSE_RANK().
+  ```sql
+  with Company_Year(company, years, total_laid_off) as 
+  (
+  select company, year(`date`), sum(total_laid_off)
+  from layoffs_staging_2
+  group by company, year(`date`)
+  ), Company_Year_Rank as 
+  (
+  select *, dense_rank() over (partition by years order by total_laid_off desc) as ranking
+  from Company_Year
+  where years is not null
+  )
+  select * 
+  from Company_Year_Rank
+  where ranking <= 5;
+  ```
 
 ---
 
